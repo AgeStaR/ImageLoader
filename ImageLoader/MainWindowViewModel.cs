@@ -15,6 +15,7 @@ namespace ImageLoader
         private string _downloadUrl;
         private byte[] _imageStream;
         private readonly DelegateCommand _downloadCommand;
+        private bool _isDownloading;
 
         public MainWindowViewModel()
         {
@@ -46,13 +47,26 @@ namespace ImageLoader
 
         private bool CanExecuteMethod()
         {
-            return !string.IsNullOrEmpty(_downloadUrl);
+            return !string.IsNullOrEmpty(_downloadUrl) && !_isDownloading;
         }
 
         private async Task Download()
         {
-            using var client = new WebClient();
-            ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
+            _isDownloading = true;
+            _downloadCommand.RaiseCanExecuteChanged();
+
+            try
+            {
+                using var client = new WebClient();
+                ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            _isDownloading = false;
+            _downloadCommand.RaiseCanExecuteChanged();
         }
     }
 }

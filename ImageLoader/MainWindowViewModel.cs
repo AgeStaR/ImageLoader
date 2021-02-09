@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -62,7 +63,7 @@ namespace ImageLoader
             }
             catch (Exception e)
             {
-
+                MessageBox.Show(e.Message);
             }
 
             _isDownloading = false;

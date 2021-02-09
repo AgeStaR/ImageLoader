@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLoader", "ImageLoader\ImageLoader.csproj", "{F4FF7290-2A24-4DEA-9F54-43673372B757}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4FF7290-2A24-4DEA-9F54-43673372B757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4FF7290-2A24-4DEA-9F54-43673372B757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4FF7290-2A24-4DEA-9F54-43673372B757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4FF7290-2A24-4DEA-9F54-43673372B757}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C28D227-0DEC-4206-BB58-D116A6830AAA}
+	EndGlobalSection
+EndGlobal

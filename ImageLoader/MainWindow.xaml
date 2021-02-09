@@ -5,30 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageLoader"
         mc:Ignorable="d"
+        MinHeight="450"
+        MinWidth="800"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
             <RowDefinition Height="25" />
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Url to download:" Grid.Row="0" />
-            <TextBox Grid.Column="2" Text="{Binding DownloadURL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" />
+            <TextBox Grid.Column="2" Text="{Binding DownloadURL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="0" />
             <Button Grid.Column="4" Content="Download" Command="{Binding DownloadCommand}" Grid.Row="0" Width="75" />
+            <Button Grid.Column="6" Content="Select file" Command="{Binding SelectCommand}" Grid.Row="0" Width="75" />
         </Grid>
 
-        <Image Grid.Row="2" Source="{Binding ImageStream}"/>
+        <Image Grid.Row="3" Source="{Binding ImageStream}"/>
     </Grid>
 </Window>

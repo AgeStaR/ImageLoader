@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -16,11 +18,27 @@ namespace ImageLoader
         private string _downloadUrl;
         private byte[] _imageStream;
         private readonly DelegateCommand _downloadCommand;
+        private readonly DelegateCommand _selectCommand;
+
         private bool _isDownloading;
 
         public MainWindowViewModel()
         {
             _downloadCommand = new DelegateCommand(async () => await Download(), CanExecuteMethod);
+            _selectCommand = new DelegateCommand(async () => await Select());
+        }
+
+        private async Task Select()
+        {
+            FileDialog dialog = new OpenFileDialog();
+
+            if (dialog.ShowDialog() ?? true)
+            {
+                var path = await Task.FromResult(dialog.FileName);
+                var bytes = await File.ReadAllBytesAsync(path);
+
+                ImageStream = bytes;
+            }
         }
 
         public string DownloadURL
@@ -35,6 +53,7 @@ namespace ImageLoader
         }
 
         public ICommand DownloadCommand => _downloadCommand;
+        public ICommand SelectCommand => _selectCommand;
 
         public byte[] ImageStream
         {

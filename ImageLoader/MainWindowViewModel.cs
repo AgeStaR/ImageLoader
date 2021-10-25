@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Prism.Commands;
@@ -24,8 +23,8 @@ namespace ImageLoader
 
         public MainWindowViewModel()
         {
-            _downloadCommand = new DelegateCommand(async () => await Download(), CanExecuteMethod);
-            _selectCommand = new DelegateCommand(async () => await Select());
+            _downloadCommand = SafeCommand.Create(Download, CanExecuteMethod);
+            _selectCommand = SafeCommand.Create(Select);
         }
 
         private async Task Select()
@@ -75,15 +74,8 @@ namespace ImageLoader
             _isDownloading = true;
             _downloadCommand.RaiseCanExecuteChanged();
 
-            try
-            {
-                using var client = new WebClient();
-                ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            using var client = new WebClient();
+            ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
 
             _isDownloading = false;
             _downloadCommand.RaiseCanExecuteChanged();

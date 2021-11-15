@@ -14,30 +14,17 @@ namespace ImageLoader
 {
     internal class MainWindowViewModel : BindableBase
     {
-        private string _downloadUrl;
-        private byte[] _imageStream;
         private readonly DelegateCommand _downloadCommand;
         private readonly DelegateCommand _selectCommand;
-
+        
+        private string _downloadUrl;
+        private byte[] _imageStream;
         private bool _isDownloading;
 
         public MainWindowViewModel()
         {
             _downloadCommand = SafeCommand.Create(Download, CanExecuteMethod);
             _selectCommand = SafeCommand.Create(Select);
-        }
-
-        private async Task Select()
-        {
-            FileDialog dialog = new OpenFileDialog();
-
-            if (dialog.ShowDialog() ?? true)
-            {
-                var path = await Task.FromResult(dialog.FileName);
-                var bytes = await File.ReadAllBytesAsync(path);
-
-                ImageStream = bytes;
-            }
         }
 
         public string DownloadURL
@@ -61,6 +48,19 @@ namespace ImageLoader
             {
                 _imageStream = value;
                 RaisePropertyChanged();
+            }
+        }
+        
+        private async Task Select()
+        {
+            FileDialog dialog = new OpenFileDialog();
+
+            if (dialog.ShowDialog() ?? true)
+            {
+                var path = await Task.FromResult(dialog.FileName);
+                var bytes = await File.ReadAllBytesAsync(path);
+
+                ImageStream = bytes;
             }
         }
 

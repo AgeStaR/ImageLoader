@@ -74,11 +74,16 @@ namespace ImageLoader
             _isDownloading = true;
             _downloadCommand.RaiseCanExecuteChanged();
 
-            using var client = new WebClient();
-            ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
-
-            _isDownloading = false;
-            _downloadCommand.RaiseCanExecuteChanged();
+            try
+            {
+                using var client = new WebClient();
+                ImageStream = await client.DownloadDataTaskAsync(new Uri(DownloadURL));
+            }
+            finally
+            {
+                _isDownloading = false;
+                _downloadCommand.RaiseCanExecuteChanged();
+            }
         }
     }
 }
